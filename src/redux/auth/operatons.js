@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { mockRegister, mockLogin } from "./mockApi";
+import { mockRegister, mockLogin, mockLogOut, mockRefreshUser } from "./mockApi";
 
 export const register = createAsyncThunk("auth/register", async(credentials, thunkApi) => {
     try{
@@ -26,3 +26,26 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logOut = createAsyncThunk(
+  "auth/logOut", 
+  async (_, thunkApi) => {
+    try {
+      await mockLogOut();
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message)
+    }
+  }
+)
+
+export const refreshUser = createAsyncThunk(
+  "auth/refreshUser", 
+  async (_, thunkApi) => {
+    try {
+      const responce = await mockRefreshUser()
+      return responce
+    } catch (error) {
+       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+)
