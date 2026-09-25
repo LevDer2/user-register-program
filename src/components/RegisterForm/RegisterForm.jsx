@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operatons";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+const navigate = useNavigate()
   const dispath = useDispatch();
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "name") {
@@ -20,9 +24,11 @@ export default function RegisterForm() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    dispath(register({ name, email, password }));
+    await dispath(register({ name, email, password }));
+
+    navigate("/contacts")
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { login } from "../../redux/auth/operatons"
 
 const LoginForm = () => {
@@ -7,15 +8,17 @@ const LoginForm = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword]= useState("")
     
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 const error = useSelector(state=> state.auth.error)
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault()
 
-        dispatch(login({
+        await dispatch(login({
             email, 
             password,
         }))
+      navigate("/contacts")
     }
     return (
       <>

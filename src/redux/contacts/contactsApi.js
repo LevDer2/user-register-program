@@ -20,3 +20,10 @@ export const mockAddContacts = async(contact) => {
     localStorage.setItem("contacts", JSON.stringify(contacts))
     return contact
 }
+
+export const mockDeleteContact = async (contactId) => {
+    const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    const updateContacts = contacts.filter(contact => contactId !== contact.id)
+    localStorage.setItem("contacts", JSON.stringify(updateContacts));
+    return contactId
+}

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { mockFetchContacts, mockAddContacts } from "./contactsApi";
+import { mockFetchContacts, mockAddContacts, mockDeleteContact } from "./contactsApi";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchContacts",
@@ -23,4 +23,16 @@ export const addContact = createAsyncThunk(
       return thunkApi.rejectWithValue(error.message);
     }
   },
+);
+
+export const deleteContact = createAsyncThunk(
+  "contacts/deleteContact",
+  async (contactId, thunkApi) => {
+    try {
+      const deleteContactId = await mockDeleteContact(contactId);
+      return deleteContactId;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
 );
